@@ -1,16 +1,11 @@
-const cds = require("@sap/cds");
-const path = require("path");
 const { getMethod } = require("../lib/method");
-
-const PATH_RESOURCES = path.join("test", "resources");
-const FILE_PETSTORE = path.join(PATH_RESOURCES, "petstore.csn");
+const { loadModel, FILE_PETSTORE } = require("./testUtils");
 
 describe("Determining the method", () => {
   let model;
 
   beforeAll(async () => {
-    const csn = await cds.load(FILE_PETSTORE);
-    model = cds.linked(csn);
+    model = await loadModel(FILE_PETSTORE);
   });
 
   it("can map to annotated method", () => {
