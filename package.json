@@ -1,0 +1,22 @@
+{
+  "name": "cap-remote-service-rest",
+  "version": "1.0.0",
+  "description": "Generic implementation to invoke remote REST services in a CAP app",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robertwitt/cap-remote-service-rest.git"
+  },
+  "author": "Robert Witt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robertwitt/cap-remote-service-rest/issues"
+  },
+  "homepage": "https://github.com/robertwitt/cap-remote-service-rest#readme",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
