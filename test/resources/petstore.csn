@@ -1,0 +1,553 @@
+{
+  "definitions": {
+    "Petstore": {
+      "kind": "service",
+      "@Capabilities.BatchSupported": false,
+      "@Capabilities.KeyAsSegmentSupported": true,
+      "@Core.Description": "Swagger Petstore - OpenAPI 3.0",
+      "@Core.SchemaVersion": "1.0.17",
+      "@Core.LongDescription": "This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about\nSwagger at [http://swagger.io](http://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!\nYou can now help us improve the API whether it's by making changes to the definition itself or to the code.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\nSome useful links:\n- [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)\n- [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)"
+    },
+    "Petstore.pet_post": {
+      "kind": "action",
+      "params": {
+        "body": {
+          "type": "Petstore_types.Pet",
+          "@openapi.in": "body"
+        }
+      },
+      "@Common.Label": "pet",
+      "@Core.Description": "Add a new pet to the store",
+      "@Core.LongDescription": "Add a new pet to the store",
+      "@openapi.path": "/pet",
+      "returns": {
+        "type": "Petstore_types.Pet"
+      }
+    },
+    "Petstore.pet_put": {
+      "kind": "action",
+      "params": {
+        "body": {
+          "type": "Petstore_types.Pet",
+          "@openapi.in": "body"
+        }
+      },
+      "@Common.Label": "pet",
+      "@Core.Description": "Update an existing pet",
+      "@Core.LongDescription": "Update an existing pet by Id",
+      "@openapi.method": "PUT",
+      "@openapi.path": "/pet",
+      "returns": {
+        "type": "Petstore_types.Pet"
+      }
+    },
+    "Petstore.pet_findByStatus": {
+      "kind": "function",
+      "params": {
+        "status": {
+          "type": "cds.String",
+          "@assert.range": true,
+          "enum": {
+            "available": {},
+            "pending": {},
+            "sold": {}
+          },
+          "@description": "Status values that need to be considered for filter",
+          "@openapi.in": "query",
+          "@openapi.explode": true
+        }
+      },
+      "@Common.Label": "pet",
+      "@Core.Description": "Finds Pets by status",
+      "@Core.LongDescription": "Multiple status values can be provided with comma separated strings",
+      "@openapi.path": "/pet/findByStatus",
+      "returns": {
+        "items": {
+          "type": "Petstore_types.Pet"
+        }
+      }
+    },
+    "Petstore.pet_findByTags": {
+      "kind": "function",
+      "params": {
+        "tags": {
+          "items": {
+            "type": "cds.String"
+          },
+          "@description": "Tags to filter by",
+          "@openapi.in": "query",
+          "@openapi.explode": true
+        }
+      },
+      "@Common.Label": "pet",
+      "@Core.Description": "Finds Pets by tags",
+      "@Core.LongDescription": "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
+      "@openapi.path": "/pet/findByTags",
+      "returns": {
+        "items": {
+          "type": "Petstore_types.Pet"
+        }
+      }
+    },
+    "Petstore.pet_": {
+      "kind": "function",
+      "params": {
+        "petId": {
+          "type": "cds.Integer64",
+          "@description": "ID of pet to return",
+          "@openapi.in": "path"
+        }
+      },
+      "@Common.Label": "pet",
+      "@Core.Description": "Find pet by ID",
+      "@Core.LongDescription": "Returns a single pet",
+      "@openapi.path": "/pet/{petId}",
+      "returns": {
+        "type": "Petstore_types.Pet"
+      }
+    },
+    "Petstore.pet__post": {
+      "kind": "action",
+      "params": {
+        "petId": {
+          "type": "cds.Integer64",
+          "@description": "ID of pet that needs to be updated",
+          "@openapi.in": "path"
+        },
+        "name": {
+          "type": "cds.String",
+          "@description": "Name of pet that needs to be updated",
+          "@openapi.in": "query"
+        },
+        "status": {
+          "type": "cds.String",
+          "@description": "Status of pet that needs to be updated",
+          "@openapi.in": "query"
+        }
+      },
+      "@Common.Label": "pet",
+      "@Core.Description": "Updates a pet in the store with form data",
+      "@openapi.path": "/pet/{petId}"
+    },
+    "Petstore.pet__delete": {
+      "kind": "action",
+      "params": {
+        "api_key": {
+          "type": "cds.String",
+          "@openapi.in": "header"
+        },
+        "petId": {
+          "type": "cds.Integer64",
+          "@description": "Pet id to delete",
+          "@openapi.in": "path"
+        }
+      },
+      "@Common.Label": "pet",
+      "@Core.Description": "Deletes a pet",
+      "@openapi.method": "DELETE",
+      "@openapi.path": "/pet/{petId}"
+    },
+    "Petstore.pet__uploadImage_post": {
+      "kind": "action",
+      "params": {
+        "petId": {
+          "type": "cds.Integer64",
+          "@description": "ID of pet to update",
+          "@openapi.in": "path"
+        },
+        "additionalMetadata": {
+          "type": "cds.String",
+          "@description": "Additional Metadata",
+          "@openapi.in": "query"
+        }
+      },
+      "@Common.Label": "pet",
+      "@Core.Description": "uploads an image",
+      "@openapi.path": "/pet/{petId}/uploadImage",
+      "returns": {
+        "type": "Petstore_types.ApiResponse"
+      }
+    },
+    "Petstore.store_inventory": {
+      "kind": "function",
+      "params": {},
+      "@Common.Label": "store",
+      "@Core.Description": "Returns pet inventories by status",
+      "@Core.LongDescription": "Returns a map of status codes to quantities",
+      "@openapi.path": "/store/inventory",
+      "returns": {
+        "elements": {}
+      }
+    },
+    "Petstore.store_order_post": {
+      "kind": "action",
+      "params": {
+        "body": {
+          "type": "Petstore_types.Order",
+          "@openapi.in": "body"
+        }
+      },
+      "@Common.Label": "store",
+      "@Core.Description": "Place an order for a pet",
+      "@Core.LongDescription": "Place a new order in the store",
+      "@openapi.path": "/store/order",
+      "returns": {
+        "type": "Petstore_types.Order"
+      }
+    },
+    "Petstore.store_order_": {
+      "kind": "function",
+      "params": {
+        "orderId": {
+          "type": "cds.Integer64",
+          "@description": "ID of order that needs to be fetched",
+          "@openapi.in": "path"
+        }
+      },
+      "@Common.Label": "store",
+      "@Core.Description": "Find purchase order by ID",
+      "@Core.LongDescription": "For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.",
+      "@openapi.path": "/store/order/{orderId}",
+      "returns": {
+        "type": "Petstore_types.Order"
+      }
+    },
+    "Petstore.store_order__delete": {
+      "kind": "action",
+      "params": {
+        "orderId": {
+          "type": "cds.Integer64",
+          "@description": "ID of the order that needs to be deleted",
+          "@openapi.in": "path"
+        }
+      },
+      "@Common.Label": "store",
+      "@Core.Description": "Delete purchase order by ID",
+      "@Core.LongDescription": "For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors",
+      "@openapi.method": "DELETE",
+      "@openapi.path": "/store/order/{orderId}"
+    },
+    "Petstore.user_post": {
+      "kind": "action",
+      "params": {
+        "body": {
+          "type": "Petstore_types.User",
+          "@openapi.in": "body"
+        }
+      },
+      "@Common.Label": "user",
+      "@Core.Description": "Create user",
+      "@Core.LongDescription": "This can only be done by the logged in user.",
+      "@openapi.path": "/user"
+    },
+    "Petstore.user_createWithList_post": {
+      "kind": "action",
+      "params": {
+        "body": {
+          "items": {
+            "type": "Petstore_types.User"
+          },
+          "@openapi.in": "body"
+        }
+      },
+      "@Common.Label": "user",
+      "@Core.Description": "Creates list of users with given input array",
+      "@Core.LongDescription": "Creates list of users with given input array",
+      "@openapi.path": "/user/createWithList",
+      "returns": {
+        "type": "Petstore_types.User"
+      }
+    },
+    "Petstore.user_login": {
+      "kind": "function",
+      "params": {
+        "username": {
+          "type": "cds.String",
+          "@description": "The user name for login",
+          "@openapi.in": "query"
+        },
+        "password": {
+          "type": "cds.String",
+          "@description": "The password for login in clear text",
+          "@openapi.in": "query"
+        }
+      },
+      "@Common.Label": "user",
+      "@Core.Description": "Logs user into the system",
+      "@openapi.path": "/user/login",
+      "returns": {
+        "type": "cds.String"
+      }
+    },
+    "Petstore.user_logout": {
+      "kind": "function",
+      "params": {},
+      "@Common.Label": "user",
+      "@Core.Description": "Logs out current logged in user session",
+      "@openapi.path": "/user/logout",
+      "returns": {
+        "type": "cds.Boolean"
+      }
+    },
+    "Petstore.user_": {
+      "kind": "function",
+      "params": {
+        "username": {
+          "type": "cds.String",
+          "@description": "The name that needs to be fetched. Use user1 for testing. ",
+          "@openapi.in": "path"
+        }
+      },
+      "@Common.Label": "user",
+      "@Core.Description": "Get user by user name",
+      "@openapi.path": "/user/{username}",
+      "returns": {
+        "type": "Petstore_types.User"
+      }
+    },
+    "Petstore.user__put": {
+      "kind": "action",
+      "params": {
+        "username": {
+          "type": "cds.String",
+          "@description": "name that need to be deleted",
+          "@openapi.in": "path"
+        },
+        "body": {
+          "type": "Petstore_types.User",
+          "@openapi.in": "body"
+        }
+      },
+      "@Common.Label": "user",
+      "@Core.Description": "Update user",
+      "@Core.LongDescription": "This can only be done by the logged in user.",
+      "@openapi.method": "PUT",
+      "@openapi.path": "/user/{username}"
+    },
+    "Petstore.user__delete": {
+      "kind": "action",
+      "params": {
+        "username": {
+          "type": "cds.String",
+          "@description": "The name that needs to be deleted",
+          "@openapi.in": "path"
+        }
+      },
+      "@Common.Label": "user",
+      "@Core.Description": "Delete user",
+      "@Core.LongDescription": "This can only be done by the logged in user.",
+      "@openapi.method": "DELETE",
+      "@openapi.path": "/user/{username}"
+    },
+    "Petstore_types.Order": {
+      "elements": {
+        "id": {
+          "type": "cds.Integer64",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 10
+        },
+        "petId": {
+          "type": "cds.Integer64",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 198772
+        },
+        "quantity": {
+          "type": "cds.Integer",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 7
+        },
+        "shipDate": {
+          "type": "cds.Timestamp"
+        },
+        "status": {
+          "@description": "Order Status",
+          "type": "cds.String",
+          "@assert.range": true,
+          "enum": {
+            "placed": {},
+            "approved": {},
+            "delivered": {}
+          },
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "approved"
+        },
+        "complete": {
+          "type": "cds.Boolean"
+        }
+      },
+      "kind": "type"
+    },
+    "Petstore_types.Customer": {
+      "elements": {
+        "id": {
+          "type": "cds.Integer64",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 100000
+        },
+        "username": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "fehguy"
+        },
+        "address": {
+          "items": {
+            "type": "Petstore_types.Address"
+          }
+        }
+      },
+      "kind": "type"
+    },
+    "Petstore_types.Address": {
+      "elements": {
+        "street": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "437 Lytton"
+        },
+        "city": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "Palo Alto"
+        },
+        "state": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "CA"
+        },
+        "zip": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 94301
+        }
+      },
+      "kind": "type"
+    },
+    "Petstore_types.Category": {
+      "elements": {
+        "id": {
+          "type": "cds.Integer64",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 1
+        },
+        "name": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "Dogs"
+        }
+      },
+      "kind": "type"
+    },
+    "Petstore_types.User": {
+      "elements": {
+        "id": {
+          "type": "cds.Integer64",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 10
+        },
+        "username": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "theUser"
+        },
+        "firstName": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "John"
+        },
+        "lastName": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "James"
+        },
+        "email": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "john@email.com"
+        },
+        "password": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 12345
+        },
+        "phone": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 12345
+        },
+        "userStatus": {
+          "@description": "User Status",
+          "type": "cds.Integer",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 1
+        }
+      },
+      "kind": "type"
+    },
+    "Petstore_types.Tag": {
+      "elements": {
+        "id": {
+          "type": "cds.Integer64"
+        },
+        "name": {
+          "type": "cds.String"
+        }
+      },
+      "kind": "type"
+    },
+    "Petstore_types.Pet": {
+      "elements": {
+        "id": {
+          "type": "cds.Integer64",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 10
+        },
+        "name": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "doggie"
+        },
+        "category": {
+          "type": "Petstore_types.Category"
+        },
+        "photoUrls": {
+          "items": {
+            "type": "cds.String"
+          }
+        },
+        "tags": {
+          "items": {
+            "type": "Petstore_types.Tag"
+          }
+        },
+        "status": {
+          "@description": "pet status in the store",
+          "type": "cds.String",
+          "@assert.range": true,
+          "enum": {
+            "available": {},
+            "pending": {},
+            "sold": {}
+          }
+        }
+      },
+      "kind": "type"
+    },
+    "Petstore_types.ApiResponse": {
+      "elements": {
+        "code": {
+          "type": "cds.Integer"
+        },
+        "type": {
+          "type": "cds.String"
+        },
+        "message": {
+          "type": "cds.String"
+        }
+      },
+      "kind": "type"
+    }
+  },
+  "meta": {
+    "creator": "cds-import-openapi"
+  }
+}
