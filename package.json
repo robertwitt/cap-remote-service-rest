@@ -16,6 +16,9 @@
     "url": "https://github.com/robertwitt/cap-remote-service-rest/issues"
   },
   "homepage": "https://github.com/robertwitt/cap-remote-service-rest#readme",
+  "engines": {
+    "node": ">=14"
+  },
   "devDependencies": {
     "jest": "^29.3.1"
   }
