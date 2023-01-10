@@ -16,10 +16,18 @@ describe("Determining the query string", () => {
     ).toEqual("status=sold");
   });
 
+  it("concatenates array literals", () => {
+    expect(
+      getQueryString(model.definitions["Petstore.pet_findByTags"], {
+        tags: ["dogs", "cats"],
+      })
+    ).toEqual("tags=dogs%2Ccats");
+  });
+
   it("ignores non-query parameter", () => {
     expect(
       getQueryString(model.definitions["Petstore.pet__post"], {
-        petId: 1,
+        petId: 42,
         name: "Lassy",
         status: "sold",
       })
