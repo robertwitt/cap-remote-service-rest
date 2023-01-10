@@ -29,6 +29,23 @@ describe("Determining the path", () => {
     ).toEqual("/user/login?username=jdoe&password=Welcome1");
   });
 
+  it("can map to path with arrayed query parameters", () => {
+    expect(
+      getPath(model.definitions["Petstore.pet_findByTags"], {
+        tags: ["dogs", "cats"],
+      })
+    ).toEqual("/pet/findByTags?tags=dogs%2Ccats");
+  });
+
+  it("ignores null or undefined as parameter values", () => {
+    expect(
+      getPath(model.definitions["Petstore.user_login"], {
+        username: null,
+        password: undefined,
+      })
+    ).toEqual("/user/login");
+  });
+
   it("can map to path with path and query parameters", () => {
     expect(
       getPath(model.definitions["Petstore.pet__uploadImage_post"], {
