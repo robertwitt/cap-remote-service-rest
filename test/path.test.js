@@ -33,6 +33,19 @@ describe("Determining the path", () => {
     ).toEqual("/user/login?username=jdoe&password=Welcome1");
   });
 
+  it("can map to path with additional query customizer", () => {
+    expect(
+      getPath(
+        model.definitions["Petstore.user_login"],
+        {
+          username: "jdoe",
+          password: "Welcome1",
+        },
+        (queryParams) => queryParams.set("apiKey", "secret")
+      )
+    ).toEqual("/user/login?username=jdoe&password=Welcome1&apiKey=secret");
+  });
+
   it("can map to path with arrayed query parameters", () => {
     expect(
       getPath(model.definitions["Petstore.pet_findByTags"], {
