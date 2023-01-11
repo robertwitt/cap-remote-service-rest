@@ -20,6 +20,10 @@ describe("Determining the path", () => {
     );
   });
 
+  it("throws error if path parameter is missing", () => {
+    expect(() => getPath(model.definitions["Petstore.pet_"])).toThrow();
+  });
+
   it("can map to path with query parameters", () => {
     expect(
       getPath(model.definitions["Petstore.user_login"], {
