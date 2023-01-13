@@ -20,6 +20,7 @@
     "node": ">=14"
   },
   "devDependencies": {
+    "@sap/cds": ">=6.0.0",
     "jest": "^29.3.1"
   },
   "peerDependencies": {
