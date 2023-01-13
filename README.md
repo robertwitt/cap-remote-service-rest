@@ -62,7 +62,7 @@ Optionally, you can customize the headers and query parameters of the request to
 ```javascript
 class PetstoreService extends RestRemoteService {
   /**
-    @param object a plain Javascript object
+    @param headers a plain Javascript object
    */
   customizeHeaders(headers) {
     headers["api_key"] = "secret";
