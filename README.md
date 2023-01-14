@@ -52,7 +52,7 @@ To invoke the remote REST service you can simply connect to the CDS service and 
 
 ```javascript
 const srv = await cds.connect.to("Petstore");
-const results = await srv.send("pet_findByStatus", { status: "available" });
+const results = await srv.send("pet_findByStatus", { status: ["available"] });
 ```
 
 ## Customization
@@ -62,14 +62,14 @@ Optionally, you can customize the headers and query parameters of the request to
 ```javascript
 class PetstoreService extends RestRemoteService {
   /**
-    @param headers a plain Javascript object
+   * @param headers a plain Javascript object
    */
   customizeHeaders(headers) {
     headers["api_key"] = "secret";
   }
 
   /**
-    @param queryParams an `URLSearchParam` object
+   * @param queryParams an `URLSearchParam` object
    */
   customizeQueryParams(queryParams) {
     queryParams.set("api_key", "secret");
